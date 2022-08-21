@@ -24,7 +24,7 @@ function compress(req, res) {
   }
 
 const start = async () => {
-    app.listen(PORT, () => {
+    app.listen(process.env.PORT || PORT, () => {
         console.log(` Deezer API 🎷 running on port ${PORT}...`)
     });   
 }
