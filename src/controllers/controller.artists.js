@@ -21,7 +21,7 @@ export const searchArtist = async (req, res) => {
         return res.status(400).json({ error: 'Please provide a search query!' });
     }
     try {
-        const searchResults = await deezer.search.artist(artist, 'artist', 5, 1);
+        const searchResults = await deezer.search.artist(artist);
         res.status(200).send(searchResults);
     } catch (error) {
         return res.status(500).send(error.message);
@@ -36,7 +36,7 @@ export const fetchArtistById = async (req, res) => {
     }
 
     try {
-        const albums = await deezer.artist((id));
+        const albums = await deezer.artist(id);
         res.status(200).send(albums);
     } catch (error) {
         return res.status(500).send(error.message);
@@ -50,7 +50,7 @@ export const fetchTopTracksByArtist = async (req, res) => {
         return res.status(400).json({ error: 'Please provide a limit, id and index!' });
     }
     try {
-        const results = await deezer.artist.top((id, limit, index));
+        const results = await deezer.artist.top(id, limit, index);
         res.status(200).send(results);
     } catch (error) {
         return res.status(500).send(error.message);
@@ -60,12 +60,12 @@ export const fetchTopTracksByArtist = async (req, res) => {
 export const fetchAlbumsByArtist = async (req, res) => {
     const { id, limit, index } = req.query;
     
-    if (!id || !limit || !index) {
+    if (!id) {
         return res.status(400).json({ error: 'Please provide an id, limit and index!' });
     }
 
     try {
-        const albums = await deezer.artist.albums((id, limit));
+        const albums = await deezer.artist.albums(id, limit, index);
         res.status(200).send(albums);
     } catch (error) {
         return res.status(500).send(error.message);
